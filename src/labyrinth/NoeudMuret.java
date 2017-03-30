@@ -4,13 +4,12 @@ package labyrinth;
  * @author Abdelhakim Qbaich
  * @author André Lalonde
  */
-
-public class NoeudMuret{
-    private Muret muret;
+public class NoeudMuret {
+    private Muret data;
     private NoeudMuret suivant;
 
-    protected NoeudMuret(Muret m, NoeudMuret nm){
-        this.muret = m;
-        this.suivant = nm;
+    public NoeudMuret(Muret data, NoeudMuret suivant) {
+        this.data = data;
+        this.suivant = suivant;
     }
- }
+}
