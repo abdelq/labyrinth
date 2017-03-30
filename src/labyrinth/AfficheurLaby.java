@@ -7,6 +7,5 @@ import javax.swing.JComponent;
  * @author André Lalonde
  */
 public class AfficheurLaby extends JComponent {
-    // TODO paintComponent
 }
 
