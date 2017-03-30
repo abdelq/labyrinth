@@ -11,4 +11,6 @@ public class JPanelLaby extends JPanel {
     JPanelLaby(BorderLayout borderLayout) {
         super(borderLayout);
     }
+
+    // TODO gère tout l'affichage graphique, et la réaction aux touches et boutons
 }
