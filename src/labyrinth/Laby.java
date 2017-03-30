@@ -42,10 +42,6 @@ public class Laby {
         visibilityDuration = Integer.parseInt(args[3]);
         healthPoints       = Integer.parseInt(args[4]);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        SwingUtilities.invokeLater(Laby::createAndShowGUI);
     }
 }
