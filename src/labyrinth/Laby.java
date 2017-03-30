@@ -10,11 +10,6 @@ import javax.swing.SwingUtilities;
  * @author André Lalonde
  */
 public class Laby {
-    private static int width, height;
-    private static double density;
-    private static int visibilityDuration;
-    private static int healthPoints;
-
     private static void createAndShowGUI() {
         JFrame frame = new JFrame("Labyrinthe invisible graphique");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,12 +31,16 @@ public class Laby {
             return;
         }
 
-        height             = Integer.parseInt(args[0]);
-        width              = Integer.parseInt(args[1]);
-        density            = Double.parseDouble(args[2]);
-        visibilityDuration = Integer.parseInt(args[3]);
-        healthPoints       = Integer.parseInt(args[4]);
+        Labyrinthe labyrinthe = new Labyrinthe(
+                Integer.parseInt(args[0]),
+                Integer.parseInt(args[1]),
+                Double.parseDouble(args[2]),
+                Integer.parseInt(args[3]),
+                Integer.parseInt(args[4])
+        );
 
-        SwingUtilities.invokeLater(Laby::createAndShowGUI);
+        // SwingUtilities.invokeLater(Laby::createAndShowGUI);
+
+        System.out.println(labyrinthe);
     }
 }
