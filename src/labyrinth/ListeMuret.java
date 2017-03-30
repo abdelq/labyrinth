@@ -5,31 +5,41 @@ package labyrinth;
  * @author André Lalonde
  */
 public class ListeMuret {
-    public LinkedList<Muret> walls;
+    private NoeudMuret first;
 
-    public ListeMuret() {
-        walls = new LinkedList<Muret>();
+    public void addFirst(Muret wall) {
+        first = new NoeudMuret(wall, first);
     }
 
-    public void add(Muret wall) {
-        walls.addFirst(wall);
-    }
+    public void showAll() {
+        NoeudMuret temp = first;
 
-    public void show() {
-        for (Muret wall : walls) {
-            wall.show();
+        while (temp != null) {
+            temp.data.show();
+            temp = temp.suivant;
         }
     }
 
-    public void hide() {
-        for (Muret wall : walls) {
-            wall.hide();
+    public void hideAll() {
+        NoeudMuret temp = first;
+
+        while (temp != null) {
+            temp.data.hide();
+            temp = temp.suivant;
         }
     }
 
     public Muret chercheMuret(Muret m) {
-        if (walls.contains(m)) {
-            return walls.get(walls.indexOf(m));
+        NoeudMuret temp = first;
+
+        while (temp != null) {
+            if (temp.data.equals(m)) {
+                return temp.data;
+            }
+
+            temp = temp.suivant;
         }
+
+        return null;
     }
 }

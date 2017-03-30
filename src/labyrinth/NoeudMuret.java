@@ -5,8 +5,8 @@ package labyrinth;
  * @author André Lalonde
  */
 public class NoeudMuret {
-    private Muret data;
-    private NoeudMuret suivant;
+    Muret data;
+    NoeudMuret suivant;
 
     public NoeudMuret(Muret data, NoeudMuret suivant) {
         this.data = data;
