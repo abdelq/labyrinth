@@ -11,9 +11,10 @@ import javax.swing.JPanel;
  * @author André Lalonde
  */
 public class JPanelLaby extends JPanel implements KeyListener {
-    JPanelLaby(BorderLayout borderLayout) {
-        // super(borderLayout);
-        setBackground(new Color(255, 255, 255));
+    JPanelLaby() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+        setFocusable(true);
         addKeyListener(this);
     }
 
@@ -25,6 +26,19 @@ public class JPanelLaby extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Deplace selon key pesée
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+                Labyrinthe.deplace('H');
+                break;
+            case KeyEvent.VK_A:
+                Labyrinthe.deplace('G');
+                break;
+            case KeyEvent.VK_S:
+                Labyrinthe.deplace('B');
+                break;
+            case KeyEvent.VK_D:
+                Labyrinthe.deplace('D');
+                break;
+        }
     }
 }

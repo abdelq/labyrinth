@@ -14,28 +14,27 @@ public class Laby {
         JFrame frame = new JFrame("Labyrinthe invisible graphique");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanelLaby(new BorderLayout());
+        JPanel panel = new JPanelLaby();
         panel.add(new AfficheurLaby(), BorderLayout.CENTER);
-        panel.setFocusable(true);
-        // panel.requestFocusInWindow();
-        frame.add(panel);
+        panel.add(new JPanel(), BorderLayout.EAST); // TODO
+        frame.getContentPane().add(panel);
 
         frame.pack();
-        // frame.setFocusable(true);
         frame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        Labyrinthe laby = null;
-
         try {
-            laby = new Labyrinthe(
+            Labyrinthe laby = new Labyrinthe(
                     Integer.parseInt(args[0]),
                     Integer.parseInt(args[1]),
                     Double.parseDouble(args[2]),
                     Integer.parseInt(args[3]),
                     Integer.parseInt(args[4])
             );
+            
+            SwingUtilities.invokeLater(Laby::createAndShowGUI);
+            System.out.println(laby);
         } catch (ArrayIndexOutOfBoundsException e1) {
             System.err.println("Nombre de paramètres incorrects.");
             System.out.println("Utilisation: java Laby <hauteur> <largeur> <densite> <duree visible> <nb vies>");
@@ -49,7 +48,5 @@ public class Laby {
 
             System.exit(1);
         }
-
-        SwingUtilities.invokeLater(Laby::createAndShowGUI);
     }
 }

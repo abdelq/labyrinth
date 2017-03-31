@@ -1,7 +1,11 @@
 package labyrinth;
 
+import java.awt.BasicStroke;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.JComponent;
+import static labyrinth.Labyrinthe.player;
+import static labyrinth.Labyrinthe.walls;
 
 /**
  * @author Abdelhakim Qbaich
@@ -10,44 +14,32 @@ import javax.swing.JComponent;
 public class AfficheurLaby extends JComponent {
     @Override
     public void paintComponent(Graphics g) {
-        /* for (double i = 0; i < height; i += .5) {
-            for (double j = 0; j < width; j += .5) {
-            }
-        } */
-        /*StringJoiner sj = new StringJoiner(System.getProperty("line.separator"));
+        int width = this.getWidth() * 75/100;
+        int height = this.getHeight() * 75/100;
 
-        sj.add("+" + new String(new char[width]).replace("\0", "--") + "+");
+        int wallWidth = width / Labyrinthe.width;
+        int wallHeight = height / Labyrinthe.height;
 
-        for (double i = 0; i < height; i += .5) {
-            StringBuilder sb = new StringBuilder();
-
-            sb.append("|");
-
-            for (double j = 0; j < width; j += .5) {
-                Muret horizontal = walls.chercheMuret(new Muret((int) j, (int) i, true, true));
-                Muret vertical = walls.chercheMuret(new Muret((int) j, (int) i, false, true));
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(3));
+        
+        g.drawLine(0, 0, width, 0);
+        
+        for (double i = 0; i < Labyrinthe.height; i += .5) {
+            for (double j = 0; j < Labyrinthe.width; j += .5) {
+                Muret horizontal = i % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, true, true)) : null;
+                Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, false, true)) : null;
                 
                 if (player.getY() == i && player.getX() == j) {
-                    sb.append("@");
-                } else if (i % 1 == 0 && horizontal != null && horizontal.isVisible()) {
-                    sb.append("-");
-                } else if (j % 1 == 0 && vertical != null && vertical.isVisible()) {
-                    sb.append("|");
-                } else {
-                    sb.append(" ");
+                    g.drawOval((int)j * wallWidth, (int)i * wallHeight, wallWidth, wallHeight);
+                } else if (horizontal != null && horizontal.isVisible()) {
+                    g.drawLine((int)j * wallWidth, (int)i * wallHeight, (int)j * wallWidth + wallWidth, (int)i * wallHeight);
+                } else if (vertical != null && vertical.isVisible()) {
+                    g.drawLine((int)j * wallWidth, (int)i * wallHeight, (int)j * wallWidth, (int)i * wallHeight + wallHeight);
                 }
             }
-
-            if ((int) i != exitPos) {
-                sb.append("|");
-            }
-
-            sj.add(sb);
         }
-
-        sj.add("+" + new String(new char[width]).replace("\0", "--") + "+");
-
-        return sj.toString();*/
-        // g.drawLine(0, 0, 5, 5);
+        
+        g.drawLine(0, height, width, height);
     }
 }
