@@ -9,16 +9,23 @@ import java.util.StringJoiner;
  */
 public class Labyrinthe {
     private final int width, height;
-    private Personnage player;
-    private ListeMuret walls;
-    // TODO Position de la sortie
+    private final Personnage player;
+    private final ListeMuret walls;
+    private final int exitPos;
 
-    public Labyrinthe(int height, int width, double density, int visibilityDuration, int healthPoints) {
+    Labyrinthe(int height, int width, double density, int visibilityDuration, int healthPoints) {
         this.width = width;
         this.height = height;
 
         Random rand = new Random();
 
+        // Personnage
+        player = new Personnage(0.5, rand.nextInt(height) + 0.5, healthPoints);
+
+        // Sortie
+        exitPos = rand.nextInt(height);
+
+        // Murets
         walls = new ListeMuret();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -27,60 +34,43 @@ public class Labyrinthe {
                 }
             }
         }
-
-        player = new Personnage(healthPoints);
-
-        do {
-            player.x = rand.nextInt(width) + 0.5;
-            player.y = rand.nextInt(height) + 0.5;
-        } while (player.x > width || player.y > height);
-
-        // TODO Position sortie aléatoire
-
-        // System.out.println("width: " + width);
-        // System.out.println("height: " + height);
-        // System.out.println("walls: " + walls);
-        // System.out.println("player: " + player.x + "x" + player.y);
     }
 
     @Override
     public String toString() {
-        // TODO À améliorer
-        StringJoiner sj = new StringJoiner("\n");
+        StringJoiner sj = new StringJoiner(System.getProperty("line.separator"));
 
-        sj.add("+" + new String(new char[width]).replace("\0", "-") + "+");
+        sj.add("+" + new String(new char[width]).replace("\0", "--") + "+");
 
-        for (int i = 0; i < height; i++) {
-            StringJoiner sj2 = new StringJoiner("", "|", "|");
+        for (double i = 0; i < height; i += .5) {
+            StringBuilder sb = new StringBuilder();
 
-            for (int j = 0; j < width; j++) {
-                if (walls.chercheMuret(new Muret(j, i, true, true)) != null) {
-                    sj2.add("-");
-                } else if (walls.chercheMuret(new Muret(j, i, false, true)) != null) {
-                    sj2.add("|");
+            sb.append("|");
+
+            for (double j = 0; j < width; j += .5) {
+                Muret horizontal = walls.chercheMuret(new Muret((int) j, (int) i, true, true));
+                Muret vertical = walls.chercheMuret(new Muret((int) j, (int) i, false, true));
+                
+                if (player.getY() == i && player.getX() == j) {
+                    sb.append("@");
+                } else if (i % 1 == 0 && horizontal != null && horizontal.isVisible()) {
+                    sb.append("-");
+                } else if (j % 1 == 0 && vertical != null && vertical.isVisible()) {
+                    sb.append("|");
                 } else {
-                    sj2.add(" ");
+                    sb.append(" ");
                 }
             }
 
-            sj.add(sj2.toString());
-            // sj.add("|" + new String(new char[width]).replace("\0", "   ") + "|");
-            // sj.add("|" + new String(new char[width]).replace("\0", "   ") + "|");
-            // sj.add("|" + new String(new char[width]).replace("\0", "   ") + "|");
+            if ((int) i != exitPos) {
+                sb.append("|");
+            }
+
+            sj.add(sb);
         }
 
-        /* for (Muret m : walls) {
-            System.out.println(m);
-        } */
-        
-        // TODO Personnage
-
-        sj.add("+" + new String(new char[width]).replace("\0", "-") + "+");
+        sj.add("+" + new String(new char[width]).replace("\0", "--") + "+");
 
         return sj.toString();
     }
-
-    /* public boolean deplace(char direction) {
-    // TODO essayer de déplacer le personnage dans la direction précisée ('D' pour droite, 'G' pour gauche, 'H' pour haut, 'B' pour bas). Cette méthode devra vérifier si il n'y a pas de muret (ou de mur d'enceinte) empêchant le déplacement. Si il y en a un, ce muret devra être rendu visible, et le personnage devra perdre une vie et ne bougera pas, la méthode devra alors retourner false. Si rien n'empêche le déplacement, mettre à jour les coordonnées du personnage et retourner true.
-    } */
 }

@@ -16,31 +16,39 @@ public class Laby {
 
         JPanel panel = new JPanelLaby(new BorderLayout());
         panel.add(new AfficheurLaby(), BorderLayout.CENTER);
+        frame.add(panel);
 
-        frame.getContentPane().add(panel);
         frame.pack();
         frame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        if (args.length < 5) {
-            System.out.println("Nombre de paramètres incorrects.");
+        Labyrinthe laby = null;
+
+        try {
+            laby = new Labyrinthe(
+                    Integer.parseInt(args[0]),
+                    Integer.parseInt(args[1]),
+                    Double.parseDouble(args[2]),
+                    Integer.parseInt(args[3]),
+                    Integer.parseInt(args[4])
+            );
+        } catch (ArrayIndexOutOfBoundsException e1) {
+            System.err.println("Nombre de paramètres incorrects.");
             System.out.println("Utilisation: java Laby <hauteur> <largeur> <densite> <duree visible> <nb vies>");
             System.out.println("Ex: java Laby 10 20 0.20 10 5");
 
-            return;
-        }
+            System.exit(1);
+        } catch (NumberFormatException e2) {
+            System.err.println("Paramètre(s) incorrect(s).");
+            System.out.println("Utilisation: java Laby <hauteur> <largeur> <densite> <duree visible> <nb vies>");
+            System.out.println("Ex: java Laby 10 20 0.20 10 5");
 
-        Labyrinthe labyrinthe = new Labyrinthe(
-                Integer.parseInt(args[0]),
-                Integer.parseInt(args[1]),
-                Double.parseDouble(args[2]),
-                Integer.parseInt(args[3]),
-                Integer.parseInt(args[4])
-        );
+            System.exit(1);
+        }
 
         // SwingUtilities.invokeLater(Laby::createAndShowGUI);
 
-        System.out.println(labyrinthe);
+        // System.out.println(laby);
     }
 }

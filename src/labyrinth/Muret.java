@@ -5,10 +5,11 @@ package labyrinth;
  * @author André Lalonde
  */
 public class Muret {
-    private int x, y;
-    private boolean isHorizontal, isVisible;
+    private final int x, y;
+    private final boolean isHorizontal;
+    private boolean isVisible;
 
-    protected Muret(int x, int y, boolean isHorizontal, boolean isVisible) {
+    Muret(int x, int y, boolean isHorizontal, boolean isVisible) {
         this.x = x;
         this.y = y;
         this.isHorizontal = isHorizontal;
@@ -35,5 +36,9 @@ public class Muret {
 
     public void hide() {
         isVisible = false;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
     }
 }
