@@ -30,15 +30,15 @@ public class Muret {
         return x == m.x && y == m.y && isHorizontal == m.isHorizontal;
     }
 
-    public void show() {
+    void show() {
         isVisible = true;
     }
 
-    public void hide() {
+    void hide() {
         isVisible = false;
     }
 
-    public boolean isVisible() {
+    boolean isVisible() {
         return isVisible;
     }
 }

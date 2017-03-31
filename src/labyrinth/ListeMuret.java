@@ -7,11 +7,11 @@ package labyrinth;
 public class ListeMuret {
     private NoeudMuret first;
 
-    public void addFirst(Muret wall) {
+    void addFirst(Muret wall) {
         first = new NoeudMuret(wall, first);
     }
 
-    public void showAll() {
+    void showAll() {
         NoeudMuret temp = first;
 
         while (temp != null) {
@@ -20,7 +20,7 @@ public class ListeMuret {
         }
     }
 
-    public void hideAll() {
+    void hideAll() {
         NoeudMuret temp = first;
 
         while (temp != null) {
@@ -29,7 +29,7 @@ public class ListeMuret {
         }
     }
 
-    public Muret chercheMuret(Muret m) {
+    Muret chercheMuret(Muret m) {
         NoeudMuret temp = first;
 
         while (temp != null) {

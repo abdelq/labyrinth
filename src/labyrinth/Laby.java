@@ -16,9 +16,12 @@ public class Laby {
 
         JPanel panel = new JPanelLaby(new BorderLayout());
         panel.add(new AfficheurLaby(), BorderLayout.CENTER);
+        panel.setFocusable(true);
+        // panel.requestFocusInWindow();
         frame.add(panel);
 
         frame.pack();
+        // frame.setFocusable(true);
         frame.setVisible(true);
     }
 
@@ -47,8 +50,6 @@ public class Laby {
             System.exit(1);
         }
 
-        // SwingUtilities.invokeLater(Laby::createAndShowGUI);
-
-        // System.out.println(laby);
+        SwingUtilities.invokeLater(Laby::createAndShowGUI);
     }
 }

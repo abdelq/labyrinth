@@ -1,16 +1,30 @@
 package labyrinth;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
 /**
  * @author Abdelhakim Qbaich
  * @author André Lalonde
  */
-public class JPanelLaby extends JPanel {
+public class JPanelLaby extends JPanel implements KeyListener {
     JPanelLaby(BorderLayout borderLayout) {
-        super(borderLayout);
+        // super(borderLayout);
+        setBackground(new Color(255, 255, 255));
+        addKeyListener(this);
     }
 
-    // TODO gère tout l'affichage graphique, et la réaction aux touches et boutons
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Deplace selon key pesée
+    }
 }
