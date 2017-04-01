@@ -1,46 +1,55 @@
 package labyrinth;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
+import javax.imageio.ImageIO;
 
 /**
  * @author Abdelhakim Qbaich
  * @author André Lalonde
  */
 public class Personnage {
-    private double x, y;
+    private float x, y;
     private int hp;
+    private final BufferedImage avatar;
 
-    protected Personnage(double x, double y, int hp) {
+    Personnage(float x, float y, int hp) throws IOException {
         this.x = x;
         this.y = y;
         this.hp = hp;
+        
+        int avatarID = new Random().nextInt(3) + 1;
+        avatar = ImageIO.read(new File("src/labyrinth/assets/player_0" + avatarID + ".png"));
     }
 
-    public void dessine(Graphics g, int x1, int y1, int x2, int y2) {
-        g.drawOval(x1, y1, x2 - x1, y2 - y1);
+    void dessine(Graphics g, int x, int y, int width, int height) {
+        g.drawImage(avatar, x, y, width, height, null);
     }
 
-    public double getX() {
+    float getX() {
         return x;
     }
 
-    public void setX(double x) {
+    void setX(float x) {
         this.x = x;
     }
 
-    public double getY() {
+    float getY() {
         return y;
     }
 
-    public void setY(double y) {
+    void setY(float y) {
         this.y = y;
     }
 
-    public int getHP() {
+    int getHP() {
         return hp;
     }
 
-    public void setHP(int hp) {
+    void setHP(int hp) {
         this.hp = hp;
     }
 }
