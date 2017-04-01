@@ -2,6 +2,8 @@ package labyrinth;
 
 import java.util.Random;
 import java.util.StringJoiner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * @author Abdelhakim Qbaich
@@ -12,10 +14,12 @@ public class Labyrinthe {
     public static Personnage player;
     public static ListeMuret walls;
     public static int exitPos;
+    public static int visDuration;
 
-    Labyrinthe(int height, int width, double density, int visibilityDuration, int healthPoints) {
+    Labyrinthe(int height, int width, double density, int visDuration, int healthPoints) {
         Labyrinthe.width = width;
         Labyrinthe.height = height;
+        Labyrinthe.visDuration = visDuration;
 
         Random rand = new Random();
 
@@ -35,6 +39,9 @@ public class Labyrinthe {
         // Sortie
         exitPos = rand.nextInt(height);
     }
+    
+    /*public void hideWalls() {
+    }*/
 
     @Override
     public String toString() {

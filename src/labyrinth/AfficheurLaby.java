@@ -3,6 +3,8 @@ package labyrinth;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JComponent;
 import static labyrinth.Labyrinthe.player;
 import static labyrinth.Labyrinthe.walls;
@@ -12,6 +14,16 @@ import static labyrinth.Labyrinthe.walls;
  * @author André Lalonde
  */
 public class AfficheurLaby extends JComponent {
+    public AfficheurLaby() {
+        new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Labyrinthe.walls.hideAll();
+                    repaint();
+                }
+            }, Labyrinthe.visDuration * 1000);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         // TODO Refactor
