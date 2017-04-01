@@ -15,8 +15,8 @@ public class ListeMuret {
         NoeudMuret temp = first;
 
         while (temp != null) {
-            temp.data.show();
-            temp = temp.suivant;
+            temp.getData().show();
+            temp = temp.getSuivant();
         }
     }
 
@@ -24,8 +24,8 @@ public class ListeMuret {
         NoeudMuret temp = first;
 
         while (temp != null) {
-            temp.data.hide();
-            temp = temp.suivant;
+            temp.getData().hide();
+            temp = temp.getSuivant();
         }
     }
 
@@ -33,11 +33,11 @@ public class ListeMuret {
         NoeudMuret temp = first;
 
         while (temp != null) {
-            if (temp.data.equals(m)) {
-                return temp.data;
+            if (temp.getData().equals(m)) {
+                return temp.getData();
             }
 
-            temp = temp.suivant;
+            temp = temp.getSuivant();
         }
 
         return null;
