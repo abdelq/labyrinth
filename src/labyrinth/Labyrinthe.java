@@ -76,10 +76,43 @@ public class Labyrinthe {
     }
 
     public static boolean deplace(char direction) {
-        // Labyrinthe kek = this;
-        // System.out.println(new Labyrinthe(this));
-        System.out.println(direction);
+        double newX = player.getX();
+        double newY = player.getY();
+        Muret wall = null;
+
+        switch (direction) {
+            case 'H':
+                newY -= 1;
+                wall = walls.chercheMuret(new Muret((int)newX, (int)(newY + .5), true, true));
+                break;
+            case 'G':
+                newX -= 1;
+                wall = walls.chercheMuret(new Muret((int)(newX + .5), (int)newY, false, true));
+                break;
+            case 'B':
+                newY += 1;
+                wall = walls.chercheMuret(new Muret((int)newX, (int)newY, true, true));
+                break;
+            case 'D':
+                newX += 1;
+                wall = walls.chercheMuret(new Muret((int)newX, (int)newY, false, true));
+                break;
+        }
+        
+        // Mur d'enceinte
+        if (newX < 0 || newX > Labyrinthe.width ||
+            newY < 0 || newY > Labyrinthe.height) {
+            return false;
+        }
+        
+        if (wall != null) {
+            wall.show(); // TODO Repaint?
+            player.setHP(player.getHP() - 1);
+            return false;
+        }
+        
+        player.setX(newX);
+        player.setY(newY);
         return true;
-        // TODO pour essayer de déplacer le personnage dans la direction précisée ('D' pour droite, 'G' pour gauche, 'H' pour haut, 'B' pour bas). Cette méthode devra vérifier si il n'y a pas de muret (ou de mur d'enceinte) empêchant le déplacement. Si il y en a un, ce muret devra être rendu visible, et le personnage devra perdre une vie et ne bougera pas, la méthode devra alors retourner false. Si rien n'empêche le déplacement, mettre à jour les coordonnées du personnage et retourner true.
     }
 }

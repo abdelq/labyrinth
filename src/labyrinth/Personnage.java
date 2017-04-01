@@ -36,11 +36,11 @@ public class Personnage {
         this.y = y;
     }
 
-    public int getHp() {
+    public int getHP() {
         return hp;
     }
 
-    public void setHp(int hp) {
+    public void setHP(int hp) {
         this.hp = hp;
     }
 }

@@ -14,6 +14,7 @@ import static labyrinth.Labyrinthe.walls;
 public class AfficheurLaby extends JComponent {
     @Override
     public void paintComponent(Graphics g) {
+        // TODO Refactor
         int width = this.getWidth() * 75/100;
         int height = this.getHeight() * 75/100;
 
