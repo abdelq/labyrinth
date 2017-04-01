@@ -50,6 +50,7 @@ public class Personnage {
     }
 
     void setHP(int hp) {
+        // TODO Check if dead
         this.hp = hp;
     }
 }

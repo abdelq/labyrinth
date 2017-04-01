@@ -1,7 +1,5 @@
 package labyrinth;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
@@ -11,13 +9,6 @@ import javax.swing.JPanel;
  * @author André Lalonde
  */
 public class JPanelLaby extends JPanel implements KeyListener {
-    JPanelLaby() {
-        setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
-        setFocusable(true);
-        addKeyListener(this);
-    }
-
     @Override
     public void keyTyped(KeyEvent e) {}
 

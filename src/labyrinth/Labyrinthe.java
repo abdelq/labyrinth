@@ -1,30 +1,27 @@
 package labyrinth;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.StringJoiner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * @author Abdelhakim Qbaich
  * @author André Lalonde
  */
 public class Labyrinthe {
-    public static int width, height;
-    public static Personnage player;
-    public static ListeMuret walls;
-    public static int exitPos;
-    public static int visDuration;
+    static int width, height, visDuration, exitPos;
+    static Personnage player;
+    static ListeMuret walls;
 
-    Labyrinthe(int height, int width, double density, int visDuration, int healthPoints) {
+    Labyrinthe(int height, int width, double density, int visDuration, int healthPoints) throws IOException {
         Labyrinthe.width = width;
         Labyrinthe.height = height;
-        Labyrinthe.visDuration = visDuration;
+        Labyrinthe.visDuration = visDuration * 1000;
 
         Random rand = new Random();
 
         // Personnage
-        player = new Personnage(0.5, rand.nextInt(height) + 0.5, healthPoints);
+        player = new Personnage(0.5f, rand.nextInt(height) + 0.5f, healthPoints);
 
         // Murets
         walls = new ListeMuret();
@@ -39,87 +36,88 @@ public class Labyrinthe {
         // Sortie
         exitPos = rand.nextInt(height);
     }
-    
-    /*public void hideWalls() {
-    }*/
 
     @Override
     public String toString() {
         StringJoiner sj = new StringJoiner(System.getProperty("line.separator"));
 
-        sj.add("+" + new String(new char[width]).replace("\0", "--") + "+");
+        String horizontalBorder = "+" + new String(new char[width]).replace("\0", "--") + "+";
 
+        sj.add(horizontalBorder);
+        
         for (double i = 0; i < height; i += .5) {
             StringBuilder sb = new StringBuilder();
 
             sb.append("|");
 
             for (double j = 0; j < width; j += .5) {
-                // TODO Optimize
-                Muret horizontal = walls.chercheMuret(new Muret((int) j, (int) i, true, true));
-                Muret vertical = walls.chercheMuret(new Muret((int) j, (int) i, false, true));
+                Muret horizontal = i % 1 == 0 ? walls.chercheMuret(new Muret((int)j, (int)i, true, true)) : null;
+                Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int)j, (int)i, false, true)) : null;
 
-                if (player.getY() == i && player.getX() == j) {
-                    sb.append("@");
-                } else if (i % 1 == 0 && horizontal != null && horizontal.isVisible()) {
+                if (horizontal != null && horizontal.getIsVisible()) {
                     sb.append("-");
-                } else if (j % 1 == 0 && vertical != null && vertical.isVisible()) {
+                } else if (vertical != null && vertical.getIsVisible()) {
                     sb.append("|");
+                } else if (player.getY() == i && player.getX() == j) {
+                    sb.append("@");
                 } else {
                     sb.append(" ");
                 }
             }
 
-            if ((int) i != exitPos) {
+            if ((int)i != exitPos) {
                 sb.append("|");
             }
 
             sj.add(sb);
         }
-
-        sj.add("+" + new String(new char[width]).replace("\0", "--") + "+"); // TODO DRY
+        
+        sj.add(horizontalBorder);
 
         return sj.toString();
     }
 
-    public static boolean deplace(char direction) {
-        double newX = player.getX();
-        double newY = player.getY();
+    static boolean deplace(char direction) {
+        float posX = player.getX();
+        float posY = player.getY();
         Muret wall = null;
 
         switch (direction) {
             case 'H':
-                newY -= 1;
-                wall = walls.chercheMuret(new Muret((int)newX, (int)(newY + .5), true, true));
+                wall = walls.chercheMuret(new Muret((int)posX, (int)posY, true, true));
+                posY -= 1;
                 break;
             case 'G':
-                newX -= 1;
-                wall = walls.chercheMuret(new Muret((int)(newX + .5), (int)newY, false, true));
+                wall = walls.chercheMuret(new Muret((int)posX, (int)posY, false, true));
+                posX -= 1;
                 break;
             case 'B':
-                newY += 1;
-                wall = walls.chercheMuret(new Muret((int)newX, (int)newY, true, true));
+                wall = walls.chercheMuret(new Muret((int)posX, (int)(posY + .5), true, true));
+                posY += 1;
                 break;
             case 'D':
-                newX += 1;
-                wall = walls.chercheMuret(new Muret((int)newX, (int)newY, false, true));
+                wall = walls.chercheMuret(new Muret((int)(posX + .5), (int)posY, false, true));
+                posX += 1;
                 break;
         }
         
         // Mur d'enceinte
-        if (newX < 0 || newX > Labyrinthe.width ||
-            newY < 0 || newY > Labyrinthe.height) {
+        if (posX < 0 || posX > Labyrinthe.width ||
+            posY < 0 || posY > Labyrinthe.height) {
             return false;
         }
-        
+
+        // Muret
         if (wall != null) {
-            wall.show(); // TODO Repaint?
+            wall.show();
             player.setHP(player.getHP() - 1);
             return false;
         }
+
+        player.setX(posX);
+        player.setY(posY);
         
-        player.setX(newX);
-        player.setY(newY);
+        // TODO Repaint
         return true;
     }
 }

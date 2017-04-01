@@ -21,7 +21,7 @@ public class AfficheurLaby extends JComponent {
                     Labyrinthe.walls.hideAll();
                     repaint();
                 }
-            }, Labyrinthe.visDuration * 1000);
+            }, Labyrinthe.visDuration);
     }
 
     @Override
@@ -44,10 +44,10 @@ public class AfficheurLaby extends JComponent {
                 Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, false, true)) : null;
                 
                 if (player.getY() == i && player.getX() == j) {
-                    g.drawOval((int)j * wallWidth, (int)i * wallHeight, wallWidth, wallHeight);
-                } else if (horizontal != null && horizontal.isVisible()) {
+                    player.dessine(g, (int)j * wallWidth, (int)i * wallHeight, wallWidth, wallHeight);
+                } else if (horizontal != null && horizontal.getIsVisible()) {
                     g.drawLine((int)j * wallWidth, (int)i * wallHeight, (int)j * wallWidth + wallWidth, (int)i * wallHeight);
-                } else if (vertical != null && vertical.isVisible()) {
+                } else if (vertical != null && vertical.getIsVisible()) {
                     g.drawLine((int)j * wallWidth, (int)i * wallHeight, (int)j * wallWidth, (int)i * wallHeight + wallHeight);
                 }
             }

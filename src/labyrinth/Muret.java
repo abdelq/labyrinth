@@ -43,6 +43,7 @@ public class Muret {
 
     void show() {
         isVisible = true;
+        // TODO Repaint
     }
 
     void hide() {

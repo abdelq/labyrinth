@@ -1,7 +1,10 @@
 package labyrinth;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.io.IOException;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -13,18 +16,27 @@ public class Laby {
         JFrame frame = new JFrame("Labyrinthe invisible graphique");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanelLaby panel = new JPanelLaby();
-        panel.add(new AfficheurLaby(), BorderLayout.CENTER);
-        // panel.add(new JPanel(), BorderLayout.EAST); // TODO
-        frame.getContentPane().add(panel);
+        JPanelLaby mainPanel = new JPanelLaby();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setBackground(Color.WHITE);
+        // mainPanel.setFocusable(true);
+        // mainPanel.addKeyListener(mainPanel);
+        
+        // Labyrinthe
+        mainPanel.add(new AfficheurLaby(), BorderLayout.CENTER);
 
+        // Panneau droit
+        JPanel rightPanel = new JPanel();
+        mainPanel.add(rightPanel, BorderLayout.EAST);
+
+        frame.getContentPane().add(mainPanel);
         frame.pack();
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
-            new Labyrinthe(
+            Labyrinthe laby = new Labyrinthe(
                     Integer.parseInt(args[0]),
                     Integer.parseInt(args[1]),
                     Double.parseDouble(args[2]),
