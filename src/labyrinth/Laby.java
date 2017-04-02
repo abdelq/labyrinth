@@ -1,9 +1,13 @@
 package labyrinth;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,6 +18,7 @@ import javax.swing.SwingUtilities;
  * @author André Lalonde
  */
 public class Laby {
+
     static JPanelLaby mainPanel;
     static JPanel rightPanel;
     static AfficheurLaby afficheur;
@@ -33,8 +38,30 @@ public class Laby {
 
         // Panneau droit
         rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+
         healthLabel = new JLabel("Vies restantes : " + Labyrinthe.player.getHP());
+        
+        JButton showWalls = new JButton("Afficher les murets");
+        showWalls.addActionListener((ActionEvent e) -> {
+            Labyrinthe.walls.showAll();
+            afficheur.repaint();
+            mainPanel.requestFocusInWindow();
+        });
+
+        JButton hideWalls = new JButton("Cacher les murets");
+        hideWalls.addActionListener((ActionEvent e) -> {
+            Labyrinthe.walls.hideAll();
+            afficheur.repaint();
+            mainPanel.requestFocusInWindow();
+        });
+
         rightPanel.add(healthLabel);
+        rightPanel.add(showWalls);
+        rightPanel.add(hideWalls);
+        rightPanel.add(new JButton("Recommencer une partie"));
+        rightPanel.add(new JButton("Intelligence artificielle"));
+
         mainPanel.add(rightPanel, BorderLayout.EAST);
 
         frame.setContentPane(mainPanel);
@@ -60,6 +87,7 @@ public class Laby {
                 public void run() {
                     Labyrinthe.walls.hideAll();
                     afficheur.repaint();
+                    mainPanel.setFocusable(true);
                     mainPanel.requestFocusInWindow();
                 }
             }, Labyrinthe.visDuration);
