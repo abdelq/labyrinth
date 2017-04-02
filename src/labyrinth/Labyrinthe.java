@@ -110,14 +110,17 @@ public class Labyrinthe {
         // Muret
         if (wall != null) {
             wall.show();
+            Laby.afficheur.repaint();
+            
             player.setHP(player.getHP() - 1);
+            
             return false;
         }
 
         player.setX(posX);
         player.setY(posY);
+        Laby.afficheur.repaint();
 
-        // TODO Repaint
         return true;
     }
 }

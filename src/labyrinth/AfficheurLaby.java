@@ -3,8 +3,6 @@ package labyrinth;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.JComponent;
 import static labyrinth.Labyrinthe.player;
 import static labyrinth.Labyrinthe.walls;
@@ -14,45 +12,29 @@ import static labyrinth.Labyrinthe.walls;
  * @author André Lalonde
  */
 public class AfficheurLaby extends JComponent {
-    public AfficheurLaby() {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Labyrinthe.walls.hideAll();
-                repaint();
-            }
-        }, Labyrinthe.visDuration);
-    }
-
     @Override
     public void paintComponent(Graphics g) {
-        // TODO Refactor
-        int width = this.getWidth() * 75/100;
-        int height = this.getHeight() * 75/100;
-
-        int wallWidth = width / Labyrinthe.width;
-        int wallHeight = height / Labyrinthe.height;
+        int wallWidth = this.getWidth() / Labyrinthe.width;
+        int wallHeight = this.getHeight() / Labyrinthe.height;
 
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(3));
 
-        g.drawLine(0, 0, width, 0);
-
         for (double i = 0; i < Labyrinthe.height; i += .5) {
             for (double j = 0; j < Labyrinthe.width; j += .5) {
-                Muret horizontal = i % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, true, true)) : null;
-                Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, false, true)) : null;
+                int posX = (int)j * wallWidth;
+                int posY = (int)i * wallHeight;
+                Muret horizontal = i % 1 == 0 ? walls.chercheMuret(new Muret((int)j, (int)i, true, true)) : null;
+                Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int)j, (int)i, false, true)) : null;
 
-                if (player.getY() == i && player.getX() == j) {
-                    player.dessine(g, (int)j * wallWidth, (int)i * wallHeight, wallWidth, wallHeight);
-                } else if (horizontal != null && horizontal.getIsVisible()) {
-                    g.drawLine((int)j * wallWidth, (int)i * wallHeight, (int)j * wallWidth + wallWidth, (int)i * wallHeight);
+                if (horizontal != null && horizontal.getIsVisible()) {
+                    g.drawLine(posX, posY, posX + wallWidth, posY);
                 } else if (vertical != null && vertical.getIsVisible()) {
-                    g.drawLine((int)j * wallWidth, (int)i * wallHeight, (int)j * wallWidth, (int)i * wallHeight + wallHeight);
+                    g.drawLine(posX, posY, posX, posY + wallHeight);
+                } else if (player.getY() == i && player.getX() == j) {
+                    player.dessine(g, posX, posY, wallWidth, wallHeight);
                 }
             }
         }
-
-        g.drawLine(0, height, width, height);
     }
 }

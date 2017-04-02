@@ -1,7 +1,5 @@
 package labyrinth;
 
-import java.awt.Graphics;
-
 /**
  * @author Abdelhakim Qbaich
  * @author André Lalonde
@@ -43,15 +41,10 @@ public class Muret {
 
     void show() {
         isVisible = true;
-        // TODO Repaint
     }
 
     void hide() {
         isVisible = false;
-    }
-
-    void dessine(Graphics g, int x, int y, int width, int height) {
-        // TODO
     }
 
     boolean getIsVisible() {

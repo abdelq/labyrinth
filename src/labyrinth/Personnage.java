@@ -50,7 +50,10 @@ public class Personnage {
     }
 
     void setHP(int hp) {
-        // TODO Check if dead
         this.hp = hp;
+
+        if (this.hp > 0) {
+            Laby.healthLabel.setText("Vies restantes : " + getHP());
+        }
     }
 }
