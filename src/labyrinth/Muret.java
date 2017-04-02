@@ -49,7 +49,7 @@ public class Muret {
     void hide() {
         isVisible = false;
     }
-    
+
     void dessine(Graphics g, int x, int y, int width, int height) {
         // TODO
     }

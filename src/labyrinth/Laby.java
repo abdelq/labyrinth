@@ -21,7 +21,7 @@ public class Laby {
         mainPanel.setBackground(Color.WHITE);
         // mainPanel.setFocusable(true);
         // mainPanel.addKeyListener(mainPanel);
-        
+
         // Labyrinthe
         mainPanel.add(new AfficheurLaby(), BorderLayout.CENTER);
 
@@ -37,11 +37,11 @@ public class Laby {
     public static void main(String[] args) throws IOException {
         try {
             Labyrinthe laby = new Labyrinthe(
-                    Integer.parseInt(args[0]),
-                    Integer.parseInt(args[1]),
-                    Double.parseDouble(args[2]),
-                    Integer.parseInt(args[3]),
-                    Integer.parseInt(args[4])
+                Integer.parseInt(args[0]),
+                Integer.parseInt(args[1]),
+                Double.parseDouble(args[2]),
+                Integer.parseInt(args[3]),
+                Integer.parseInt(args[4])
             );
 
             SwingUtilities.invokeLater(Laby::createAndShowGUI);

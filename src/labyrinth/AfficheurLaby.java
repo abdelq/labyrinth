@@ -16,12 +16,12 @@ import static labyrinth.Labyrinthe.walls;
 public class AfficheurLaby extends JComponent {
     public AfficheurLaby() {
         new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Labyrinthe.walls.hideAll();
-                    repaint();
-                }
-            }, Labyrinthe.visDuration);
+            @Override
+            public void run() {
+                Labyrinthe.walls.hideAll();
+                repaint();
+            }
+        }, Labyrinthe.visDuration);
     }
 
     @Override
@@ -35,14 +35,14 @@ public class AfficheurLaby extends JComponent {
 
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(3));
-        
+
         g.drawLine(0, 0, width, 0);
-        
+
         for (double i = 0; i < Labyrinthe.height; i += .5) {
             for (double j = 0; j < Labyrinthe.width; j += .5) {
                 Muret horizontal = i % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, true, true)) : null;
                 Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, false, true)) : null;
-                
+
                 if (player.getY() == i && player.getX() == j) {
                     player.dessine(g, (int)j * wallWidth, (int)i * wallHeight, wallWidth, wallHeight);
                 } else if (horizontal != null && horizontal.getIsVisible()) {
@@ -52,7 +52,7 @@ public class AfficheurLaby extends JComponent {
                 }
             }
         }
-        
+
         g.drawLine(0, height, width, height);
     }
 }

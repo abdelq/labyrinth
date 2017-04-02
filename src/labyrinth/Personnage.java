@@ -20,7 +20,7 @@ public class Personnage {
         this.x = x;
         this.y = y;
         this.hp = hp;
-        
+
         int avatarID = new Random().nextInt(3) + 1;
         avatar = ImageIO.read(new File("src/labyrinth/assets/player_0" + avatarID + ".png"));
     }
