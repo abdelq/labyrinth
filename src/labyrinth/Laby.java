@@ -62,7 +62,7 @@ public class Laby {
 
         JButton restart = new JButton("Recommencer une partie");
         restart.addActionListener((ActionEvent e) -> {
-            // kek
+            restartGame();
         });
 
         rightPanel.add(healthLabel);
@@ -86,11 +86,11 @@ public class Laby {
     public static void main(String[] args) throws IOException {
         try {
             Labyrinthe laby = new Labyrinthe(
-                Integer.parseInt(args[0]),
-                Integer.parseInt(args[1]),
-                Double.parseDouble(args[2]),
-                Integer.parseInt(args[3]),
-                Integer.parseInt(args[4])
+                    Integer.parseInt(args[0]),
+                    Integer.parseInt(args[1]),
+                    Double.parseDouble(args[2]),
+                    Integer.parseInt(args[3]),
+                    Integer.parseInt(args[4])
             );
 
             SwingUtilities.invokeLater(Laby::createAndShowGUI);
@@ -120,42 +120,45 @@ public class Laby {
         }
     }
 
-    static void endGame() {
-        String[] options = {"Oui", "Non"};
-
-        int answer = JOptionPane.showOptionDialog(frame, "Voulez-vous jouer une nouvelle partie ?",
-                     "Rejouer une partie",
-                     JOptionPane.YES_NO_OPTION,
-                     JOptionPane.QUESTION_MESSAGE,
-                     null,
-                     options,
-                     options[0]);
-
-        if (answer == 0) {
-            Labyrinthe laby = new Labyrinthe(
+    static void restartGame() {
+        Labyrinthe laby = new Labyrinthe(
                 Labyrinthe.height,
                 Labyrinthe.width,
                 Labyrinthe.density,
                 Labyrinthe.visDuration,
                 Labyrinthe.healthPoints
-            );
+        );
 
-            healthLabel.setText("Vies restantes : " + Labyrinthe.healthPoints);
+        healthLabel.setText("Vies restantes : " + Labyrinthe.healthPoints);
 
-            // Labyrinthe.walls.hideAll();
-            mainPanel.setFocusable(false);
-            afficheur.repaint();
+        mainPanel.setFocusable(false);
+        afficheur.repaint();
 
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Labyrinthe.walls.hideAll();
-                    afficheur.repaint();
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Labyrinthe.walls.hideAll();
+                afficheur.repaint();
 
-                    mainPanel.setFocusable(true);
-                    mainPanel.requestFocusInWindow();
-                }
-            }, Labyrinthe.visDuration * 1000);
+                mainPanel.setFocusable(true);
+                mainPanel.requestFocusInWindow();
+            }
+        }, Labyrinthe.visDuration * 1000);
+    }
+
+    static void endGame() {
+        String[] options = {"Oui", "Non"};
+
+        int answer = JOptionPane.showOptionDialog(frame, "Voulez-vous jouer une nouvelle partie ?",
+                "Rejouer une partie",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (answer == 0) {
+            restartGame();
         } else if (answer == 1) {
             System.exit(0);
         }
