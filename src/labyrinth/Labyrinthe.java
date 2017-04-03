@@ -28,7 +28,15 @@ public class Labyrinthe {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (rand.nextDouble() < density) {
+                	if ((i == 0 && j == 0) || (i == width-1 && j == height-1)) {
+                		continue;
+                	} else if (i == 0 || i == width-1) {
+                		walls.addFirst(new Muret(i, j, true, true));
+                	} else if (j == 0 || j == height-1) {
+                		walls.addFirst(new Muret(i,j,false, true));
+                	} else {
                     walls.addFirst(new Muret(i, j, rand.nextBoolean(), true));
+                	}
                 }
             }
         }
