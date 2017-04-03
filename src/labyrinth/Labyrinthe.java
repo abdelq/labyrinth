@@ -38,15 +38,13 @@ public class Labyrinthe {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (rand.nextDouble() < density) {
-                	if ((i == 0 && j == 0) || (i == width-1 && j == height-1)) {
-                		continue;
-                	} else if (i == 0 || i == width-1) {
-                		walls.addFirst(new Muret(i, j, true, true));
-                	} else if (j == 0 || j == height-1) {
-                		walls.addFirst(new Muret(i,j,false, true));
-                	} else {
-                    walls.addFirst(new Muret(i, j, rand.nextBoolean(), true));
-                	}
+                    boolean isHorizontal = rand.nextBoolean();
+
+                    if (isHorizontal && j > 0 && j < height - 1) {
+                        walls.addFirst(new Muret(i, j, true, true));
+                    } else if (i > 0 && i < width - 1) {
+                        walls.addFirst(new Muret(i, j, false, true));
+                    }
                 }
             }
         }
@@ -131,14 +129,14 @@ public class Labyrinthe {
             Laby.afficheur.repaint();
 
             player.setHP(player.getHP() - 1);
-            
+
             return false;
         }
 
         player.setX(posX);
         player.setY(posY);
         Laby.afficheur.repaint();
-        
+
         return true;
     }
 }

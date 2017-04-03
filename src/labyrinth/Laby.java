@@ -48,7 +48,7 @@ public class Laby {
         showWalls.addActionListener((ActionEvent e) -> {
             Labyrinthe.walls.showAll();
             afficheur.repaint();
-            
+
             mainPanel.requestFocusInWindow();
         });
 
@@ -56,10 +56,10 @@ public class Laby {
         hideWalls.addActionListener((ActionEvent e) -> {
             Labyrinthe.walls.hideAll();
             afficheur.repaint();
-            
+
             mainPanel.requestFocusInWindow();
         });
-        
+
         JButton restart = new JButton("Recommencer une partie");
         restart.addActionListener((ActionEvent e) -> {
             // kek
@@ -100,7 +100,7 @@ public class Laby {
                 public void run() {
                     Labyrinthe.walls.hideAll();
                     afficheur.repaint();
-                    
+
                     mainPanel.setFocusable(true);
                     mainPanel.requestFocusInWindow();
                 }
@@ -139,19 +139,19 @@ public class Laby {
                 Labyrinthe.visDuration,
                 Labyrinthe.healthPoints
             );
-            
+
             healthLabel.setText("Vies restantes : " + Labyrinthe.healthPoints);
-         
+
             // Labyrinthe.walls.hideAll();
             mainPanel.setFocusable(false);
             afficheur.repaint();
-            
+
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
                     Labyrinthe.walls.hideAll();
                     afficheur.repaint();
-                    
+
                     mainPanel.setFocusable(true);
                     mainPanel.requestFocusInWindow();
                 }
