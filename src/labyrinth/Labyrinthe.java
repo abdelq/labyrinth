@@ -9,19 +9,29 @@ import java.util.StringJoiner;
  * @author André Lalonde
  */
 public class Labyrinthe {
-    static int width, height, visDuration, exitPos;
+    static int height, width;
+    static double density;
+    static int visDuration, healthPoints;
     static Personnage player;
     static ListeMuret walls;
+    static int exitPos;
 
-    Labyrinthe(int height, int width, double density, int visDuration, int healthPoints) throws IOException {
-        Labyrinthe.width = width;
+    Labyrinthe(int height, int width, double density, int visDuration, int healthPoints) {
         Labyrinthe.height = height;
-        Labyrinthe.visDuration = visDuration * 1000;
+        Labyrinthe.width = width;
+        Labyrinthe.density = density;
+        Labyrinthe.visDuration = visDuration;
+        Labyrinthe.healthPoints = healthPoints;
 
         Random rand = new Random();
 
         // Personnage
-        player = new Personnage(0.5f, rand.nextInt(height) + 0.5f, healthPoints);
+        try {
+            player = new Personnage(0.5f, rand.nextInt(height) + 0.5f, healthPoints);
+        } catch (IOException ex) {
+            System.err.println("Image de personnage introuvable");
+            System.exit(1);
+        }
 
         // Murets
         walls = new ListeMuret();
@@ -119,7 +129,7 @@ public class Labyrinthe {
         if (wall != null) {
             wall.show();
             Laby.afficheur.repaint();
-            
+
             player.setHP(player.getHP() - 1);
             
             return false;
@@ -128,7 +138,7 @@ public class Labyrinthe {
         player.setX(posX);
         player.setY(posY);
         Laby.afficheur.repaint();
-
+        
         return true;
     }
 }

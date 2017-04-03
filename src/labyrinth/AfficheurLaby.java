@@ -24,15 +24,20 @@ public class AfficheurLaby extends JComponent {
             for (double j = 0; j < Labyrinthe.width; j += .5) {
                 int posX = (int)j * wallWidth;
                 int posY = (int)i * wallHeight;
+
+                // Personnage
+                if (player.getY() == i && player.getX() == j) {
+                    player.dessine(g, posX, posY, wallWidth, wallHeight);
+                }
+
+                // Mur
                 Muret horizontal = i % 1 == 0 ? walls.chercheMuret(new Muret((int)j, (int)i, true, true)) : null;
                 Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int)j, (int)i, false, true)) : null;
 
                 if (horizontal != null && horizontal.getIsVisible()) {
-                    g.drawLine(posX, posY, posX + wallWidth, posY);
+                    horizontal.dessine(g, posX, posY, posX + wallWidth, posY);
                 } else if (vertical != null && vertical.getIsVisible()) {
-                    g.drawLine(posX, posY, posX, posY + wallHeight);
-                } else if (player.getY() == i && player.getX() == j) {
-                    player.dessine(g, posX, posY, wallWidth, wallHeight);
+                    vertical.dessine(g, posX, posY, posX, posY + wallHeight);
                 }
             }
         }

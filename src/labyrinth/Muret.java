@@ -1,5 +1,7 @@
 package labyrinth;
 
+import java.awt.Graphics;
+
 /**
  * @author Abdelhakim Qbaich
  * @author André Lalonde
@@ -14,6 +16,10 @@ public class Muret {
         this.y = y;
         this.isHorizontal = isHorizontal;
         this.isVisible = isVisible;
+    }
+
+    void dessine(Graphics g, int x1, int y1, int x2, int y2) {
+        g.drawLine(x1, y1, x2, y2);
     }
 
     @Override

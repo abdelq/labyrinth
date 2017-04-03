@@ -51,9 +51,11 @@ public class Personnage {
 
     void setHP(int hp) {
         this.hp = hp;
+        
+        Laby.healthLabel.setText("Vies restantes : " + getHP());
 
-        if (this.hp > 0) {
-            Laby.healthLabel.setText("Vies restantes : " + getHP());
+        if (this.hp <= 0) {
+            Laby.endGame();
         }
     }
 }
