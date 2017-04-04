@@ -3,6 +3,7 @@ package labyrinth;
 import java.io.IOException;
 import java.util.Random;
 import java.util.StringJoiner;
+import javax.swing.JOptionPane;
 
 /**
  * @author Abdelhakim Qbaich
@@ -140,6 +141,7 @@ public class Labyrinthe {
 
         // Sortie
         if (player.getY() == Labyrinthe.exitPos + 0.5 && player.getX() == Labyrinthe.width - 0.5) {
+        	JOptionPane.showMessageDialog(Laby.frame, "Bravo, vous êtes parvenu jusqu'à la sortie en commettant seulement "+(Labyrinthe.healthPoints - Labyrinthe.player.getHP())+"erreurs.");
             Laby.endGame();
         }
 
