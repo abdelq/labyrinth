@@ -9,11 +9,14 @@ import javax.swing.JPanel;
  * @author André Lalonde
  */
 public class JPanelLaby extends JPanel implements KeyListener {
-    @Override
-    public void keyTyped(KeyEvent e) {}
 
     @Override
-    public void keyPressed(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
 
     @Override
     public void keyReleased(KeyEvent e) {

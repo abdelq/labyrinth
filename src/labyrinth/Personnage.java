@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
  * @author André Lalonde
  */
 public class Personnage {
+
     private float x, y;
     private int hp;
     private final BufferedImage avatar;

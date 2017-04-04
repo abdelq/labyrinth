@@ -9,6 +9,7 @@ import java.util.StringJoiner;
  * @author André Lalonde
  */
 public class Labyrinthe {
+
     static int height, width;
     static double density;
     static int visDuration, healthPoints;
@@ -67,8 +68,8 @@ public class Labyrinthe {
             sb.append("|");
 
             for (double j = 0; j < width; j += .5) {
-                Muret horizontal = i % 1 == 0 ? walls.chercheMuret(new Muret((int)j, (int)i, true, true)) : null;
-                Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int)j, (int)i, false, true)) : null;
+                Muret horizontal = i % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, true, true)) : null;
+                Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, false, true)) : null;
 
                 if (horizontal != null && horizontal.getIsVisible()) {
                     sb.append("-");
@@ -81,7 +82,7 @@ public class Labyrinthe {
                 }
             }
 
-            if ((int)i != exitPos) {
+            if ((int) i != exitPos) {
                 sb.append("|");
             }
 
@@ -100,26 +101,26 @@ public class Labyrinthe {
 
         switch (direction) {
         case 'H':
-            wall = walls.chercheMuret(new Muret((int)posX, (int)posY, true, true));
+            wall = walls.chercheMuret(new Muret((int) posX, (int) posY, true, true));
             posY -= 1;
             break;
         case 'G':
-            wall = walls.chercheMuret(new Muret((int)posX, (int)posY, false, true));
+            wall = walls.chercheMuret(new Muret((int) posX, (int) posY, false, true));
             posX -= 1;
             break;
         case 'B':
-            wall = walls.chercheMuret(new Muret((int)posX, (int)(posY + .5), true, true));
+            wall = walls.chercheMuret(new Muret((int) posX, (int) (posY + .5), true, true));
             posY += 1;
             break;
         case 'D':
-            wall = walls.chercheMuret(new Muret((int)(posX + .5), (int)posY, false, true));
+            wall = walls.chercheMuret(new Muret((int) (posX + .5), (int) posY, false, true));
             posX += 1;
             break;
         }
 
         // Mur d'enceinte
-        if (posX < 0 || posX > Labyrinthe.width ||
-                posY < 0 || posY > Labyrinthe.height) {
+        if (posX < 0 || posX > Labyrinthe.width
+                || posY < 0 || posY > Labyrinthe.height) {
             return false;
         }
 
@@ -132,13 +133,14 @@ public class Labyrinthe {
 
             return false;
         }
+
         player.setX(posX);
         player.setY(posY);
         Laby.afficheur.repaint();
-        
+
         // Sortie
-        if (player.getY() == Labyrinthe.exitPos+0.5 && player.getX() == Labyrinthe.width-0.5) {
-        	Laby.endGame();
+        if (player.getY() == Labyrinthe.exitPos + 0.5 && player.getX() == Labyrinthe.width - 0.5) {
+            Laby.endGame();
         }
 
         return true;

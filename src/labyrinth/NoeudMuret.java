@@ -5,6 +5,7 @@ package labyrinth;
  * @author André Lalonde
  */
 public class NoeudMuret {
+
     private Muret data;
     private NoeudMuret suivant;
 

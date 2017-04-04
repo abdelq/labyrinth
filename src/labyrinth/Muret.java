@@ -7,6 +7,7 @@ import java.awt.Graphics;
  * @author André Lalonde
  */
 public class Muret {
+
     private final int x, y;
     private final boolean isHorizontal;
     private boolean isVisible;

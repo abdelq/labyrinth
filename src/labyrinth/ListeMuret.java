@@ -5,6 +5,7 @@ package labyrinth;
  * @author André Lalonde
  */
 public class ListeMuret {
+
     private NoeudMuret first;
 
     void addFirst(Muret wall) {
