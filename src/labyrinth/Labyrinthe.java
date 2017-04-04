@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /**
  * @author Abdelhakim Qbaich
- * @author André Lalonde
+ * @author AndrÃ© Lalonde
  */
 public class Labyrinthe {
 
@@ -141,7 +141,7 @@ public class Labyrinthe {
 
         // Sortie
         if (player.getY() == Labyrinthe.exitPos + 0.5 && player.getX() == Labyrinthe.width - 0.5) {
-        	JOptionPane.showMessageDialog(Laby.frame, "Bravo, vous �tes parvenu jusqu'� la sortie en commettant seulement "+(Labyrinthe.healthPoints - Labyrinthe.player.getHP())+"erreurs.");
+            JOptionPane.showMessageDialog(Laby.frame, "Bravo, vous êtes parvenu jusqu'à la sortie en commettant seulement " + (Labyrinthe.healthPoints - Labyrinthe.player.getHP()) + " erreurs.", "Vous avez gagné", JOptionPane.DEFAULT_OPTION);
             Laby.endGame();
         }
 
