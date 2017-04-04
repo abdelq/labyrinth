@@ -132,10 +132,14 @@ public class Labyrinthe {
 
             return false;
         }
-
         player.setX(posX);
         player.setY(posY);
         Laby.afficheur.repaint();
+        
+        // Sortie
+        if (player.getY() == Labyrinthe.exitPos+0.5 && player.getX() == Labyrinthe.width-0.5) {
+        	Laby.endGame();
+        }
 
         return true;
     }

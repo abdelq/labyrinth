@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import javax.swing.JComponent;
 import static labyrinth.Labyrinthe.player;
 import static labyrinth.Labyrinthe.walls;
-
+import java.awt.Color;
 /**
  * @author Abdelhakim Qbaich
  * @author André Lalonde
@@ -28,6 +28,14 @@ public class AfficheurLaby extends JComponent {
                 // Personnage
                 if (player.getY() == i && player.getX() == j) {
                     player.dessine(g, posX, posY, wallWidth, wallHeight);
+                }
+                // Sortie
+                if (Labyrinthe.exitPos == i && Labyrinthe.width-1 == j) {
+                	g.setColor(Color.GREEN);
+                	g.drawLine(posX, posY, posX + wallWidth, posY + wallHeight);
+                	
+                	g.drawLine(posX, posY + wallHeight, posX + wallWidth, posY);
+                	g.setColor(Color.BLACK);
                 }
 
                 // Mur
