@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /**
  * @author Abdelhakim Qbaich
- * @author AndrÃ© Lalonde
+ * @author André Lalonde
  */
 public class Labyrinthe {
 
