@@ -66,6 +66,11 @@ public class Laby {
             restartGame();
         });
 
+        JButton ai = new JButton("Intelligence artificielle");
+        ai.addActionListener((ActionEvent e) -> {
+            AI.findPath();
+        });
+
         rightPanel.add(healthLabel);
         rightPanel.add(Box.createRigidArea(new Dimension(0, 25)));
         rightPanel.add(showWalls);
@@ -74,7 +79,7 @@ public class Laby {
         rightPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         rightPanel.add(restart);
         rightPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        rightPanel.add(new JButton("Intelligence artificielle"));
+        rightPanel.add(ai);
 
         mainPanel.add(rightPanel, BorderLayout.EAST);
 
