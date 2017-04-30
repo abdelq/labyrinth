@@ -1,5 +1,3 @@
-package labyrinth;
-
 import java.awt.Graphics;
 
 /**

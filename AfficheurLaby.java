@@ -1,12 +1,8 @@
-package labyrinth;
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JComponent;
-import static labyrinth.Labyrinthe.player;
-import static labyrinth.Labyrinthe.walls;
 
 /**
  * @author Abdelhakim Qbaich
@@ -23,7 +19,7 @@ public class AfficheurLaby extends JComponent {
         g2.setStroke(new BasicStroke(3));
 
         // Personnage
-        player.dessine(g, (int) player.getX() * wallWidth, (int) player.getY() * wallHeight, wallWidth, wallHeight);
+        Labyrinthe.player.dessine(g, (int) Labyrinthe.player.getX() * wallWidth, (int) Labyrinthe.player.getY() * wallHeight, wallWidth, wallHeight);
 
         // Mur
         g.setColor(Color.RED);
@@ -32,8 +28,8 @@ public class AfficheurLaby extends JComponent {
                 int posX = (int) j * wallWidth;
                 int posY = (int) i * wallHeight;
 
-                Muret horizontal = i % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, true, true)) : null;
-                Muret vertical = j % 1 == 0 ? walls.chercheMuret(new Muret((int) j, (int) i, false, true)) : null;
+                Muret horizontal = i % 1 == 0 ? Labyrinthe.walls.chercheMuret(new Muret((int) j, (int) i, true, true)) : null;
+                Muret vertical = j % 1 == 0 ? Labyrinthe.walls.chercheMuret(new Muret((int) j, (int) i, false, true)) : null;
 
                 if (horizontal != null && horizontal.getIsVisible()) {
                     horizontal.dessine(g, posX, posY, posX + wallWidth, posY);

@@ -1,5 +1,3 @@
-package labyrinth;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -79,6 +77,7 @@ public class Laby {
                 new Timer().schedule(new TimerTask() {
                     @Override
                     public void run() {
+                        mainPanel.setFocusable(false);
                         Labyrinthe.deplace(direction);
                     }
                 }, i * 500);

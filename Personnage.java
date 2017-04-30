@@ -1,5 +1,3 @@
-package labyrinth;
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,7 +21,7 @@ public class Personnage {
         this.hp = hp;
 
         int avatarID = new Random().nextInt(3) + 1;
-        avatar = ImageIO.read(new File("src/labyrinth/assets/player_0" + avatarID + ".png"));
+        avatar = ImageIO.read(new File("./assets/player_0" + avatarID + ".png"));
     }
 
     void dessine(Graphics g, int x, int y, int width, int height) {
