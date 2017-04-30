@@ -103,7 +103,7 @@ public class AI {
 
             if (current.equals(goal)) {
                 LinkedList<Character> path = new LinkedList<>();
-                
+
                 Node node = current;
                 while (node.cameFrom != null) {
                     if (node.x - node.cameFrom.x > 0) {
@@ -115,10 +115,10 @@ public class AI {
                     } else if (node.y - node.cameFrom.y < 0) {
                         path.addFirst('H');
                     }
-                    
+
                     node = node.cameFrom;
                 }
-                
+
                 return path;
             }
 

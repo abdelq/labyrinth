@@ -82,7 +82,7 @@ public class Laby {
                         Labyrinthe.deplace(direction);
                     }
                 }, i * 500);
-                
+
                 i++;
             }
         });
@@ -108,11 +108,11 @@ public class Laby {
     public static void main(String[] args) throws IOException {
         try {
             Labyrinthe laby = new Labyrinthe(
-                    Integer.parseInt(args[0]),
-                    Integer.parseInt(args[1]),
-                    Double.parseDouble(args[2]),
-                    Integer.parseInt(args[3]),
-                    Integer.parseInt(args[4])
+                Integer.parseInt(args[0]),
+                Integer.parseInt(args[1]),
+                Double.parseDouble(args[2]),
+                Integer.parseInt(args[3]),
+                Integer.parseInt(args[4])
             );
 
             SwingUtilities.invokeLater(Laby::createAndShowGUI);
@@ -144,11 +144,11 @@ public class Laby {
 
     static void restartGame() {
         Labyrinthe laby = new Labyrinthe(
-                Labyrinthe.height,
-                Labyrinthe.width,
-                Labyrinthe.density,
-                Labyrinthe.visDuration,
-                Labyrinthe.healthPoints
+            Labyrinthe.height,
+            Labyrinthe.width,
+            Labyrinthe.density,
+            Labyrinthe.visDuration,
+            Labyrinthe.healthPoints
         );
 
         healthLabel.setText("Vies restantes : " + Labyrinthe.healthPoints);
@@ -172,12 +172,12 @@ public class Laby {
         String[] options = {"Oui", "Non"};
 
         int answer = JOptionPane.showOptionDialog(frame, "Voulez-vous jouer une nouvelle partie ?",
-                "Rejouer une partie",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
+                     "Rejouer une partie",
+                     JOptionPane.YES_NO_OPTION,
+                     JOptionPane.QUESTION_MESSAGE,
+                     null,
+                     options,
+                     options[0]);
 
         if (answer == 0) {
             restartGame();
