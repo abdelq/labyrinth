@@ -4,8 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -66,6 +70,23 @@ public class Laby {
             restartGame();
         });
 
+        JButton ai = new JButton("Intelligence artificielle");
+        ai.addActionListener((ActionEvent e) -> {
+            mainPanel.setFocusable(false);
+
+            int i = 1;
+            for (Character direction : AI.findPath()) {
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Labyrinthe.deplace(direction);
+                    }
+                }, i * 500);
+
+                i++;
+            }
+        });
+
         rightPanel.add(healthLabel);
         rightPanel.add(Box.createRigidArea(new Dimension(0, 25)));
         rightPanel.add(showWalls);
@@ -74,7 +95,7 @@ public class Laby {
         rightPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         rightPanel.add(restart);
         rightPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        rightPanel.add(new JButton("Intelligence artificielle"));
+        rightPanel.add(ai);
 
         mainPanel.add(rightPanel, BorderLayout.EAST);
 
