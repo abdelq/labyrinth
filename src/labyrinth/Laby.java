@@ -4,8 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -68,7 +72,19 @@ public class Laby {
 
         JButton ai = new JButton("Intelligence artificielle");
         ai.addActionListener((ActionEvent e) -> {
-            AI.findPath();
+            mainPanel.setFocusable(false);
+
+            int i = 1;
+            for (Character direction : AI.findPath()) {
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Labyrinthe.deplace(direction);
+                    }
+                }, i * 500);
+                
+                i++;
+            }
         });
 
         rightPanel.add(healthLabel);
@@ -92,11 +108,11 @@ public class Laby {
     public static void main(String[] args) throws IOException {
         try {
             Labyrinthe laby = new Labyrinthe(
-                Integer.parseInt(args[0]),
-                Integer.parseInt(args[1]),
-                Double.parseDouble(args[2]),
-                Integer.parseInt(args[3]),
-                Integer.parseInt(args[4])
+                    Integer.parseInt(args[0]),
+                    Integer.parseInt(args[1]),
+                    Double.parseDouble(args[2]),
+                    Integer.parseInt(args[3]),
+                    Integer.parseInt(args[4])
             );
 
             SwingUtilities.invokeLater(Laby::createAndShowGUI);
@@ -128,11 +144,11 @@ public class Laby {
 
     static void restartGame() {
         Labyrinthe laby = new Labyrinthe(
-            Labyrinthe.height,
-            Labyrinthe.width,
-            Labyrinthe.density,
-            Labyrinthe.visDuration,
-            Labyrinthe.healthPoints
+                Labyrinthe.height,
+                Labyrinthe.width,
+                Labyrinthe.density,
+                Labyrinthe.visDuration,
+                Labyrinthe.healthPoints
         );
 
         healthLabel.setText("Vies restantes : " + Labyrinthe.healthPoints);
@@ -156,12 +172,12 @@ public class Laby {
         String[] options = {"Oui", "Non"};
 
         int answer = JOptionPane.showOptionDialog(frame, "Voulez-vous jouer une nouvelle partie ?",
-                     "Rejouer une partie",
-                     JOptionPane.YES_NO_OPTION,
-                     JOptionPane.QUESTION_MESSAGE,
-                     null,
-                     options,
-                     options[0]);
+                "Rejouer une partie",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
 
         if (answer == 0) {
             restartGame();

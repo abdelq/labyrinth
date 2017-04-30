@@ -2,6 +2,7 @@ package labyrinth;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 /**
  * @author Abdelhakim Qbaich
@@ -22,9 +23,17 @@ public class AI {
             gScore = Integer.MAX_VALUE;
             fScore = Integer.MAX_VALUE;
         }
-        
+
         @Override
         public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+
             Node node = (Node) obj;
             return x == node.x && y == node.y;
         }
@@ -72,7 +81,7 @@ public class AI {
         return neighbors;
     }
 
-    static ArrayList<Node> findPath() {
+    static LinkedList<Character> findPath() {
         HashSet<Node> open = new HashSet<>();
         HashSet<Node> closed = new HashSet<>();
 
@@ -84,43 +93,46 @@ public class AI {
         open.add(start);
 
         while (!open.isEmpty()) {
-            Node current = open.iterator().next();
+            Node current = null;
 
             for (Node node : open) {
-                if (node.fScore < current.fScore) {
+                if (current == null || node.fScore < current.fScore) {
                     current = node;
                 }
             }
-            
-            // System.out.println("Current: " + current.x + " " + current.y);
-            // System.out.println("Goal: " + goal.x + " " + goal.y);
 
-            if (current == goal) {
-                System.out.println("The end");
-                // ArrayList<Node> path = new ArrayList<>();
-                // System.out.println(current);
-                // System.out.println(current.cameFrom);
-                // TODO return reconstruct_path(cameFrom, current)
-
-                // System.out.println(path);
-                return null;// path;
+            if (current.equals(goal)) {
+                LinkedList<Character> path = new LinkedList<>();
+                
+                Node node = current;
+                while (node.cameFrom != null) {
+                    if (node.x - node.cameFrom.x > 0) {
+                        path.addFirst('D');
+                    } else if (node.x - node.cameFrom.x < 0) {
+                        path.addFirst('G');
+                    } else if (node.y - node.cameFrom.y > 0) {
+                        path.addFirst('B');
+                    } else if (node.y - node.cameFrom.y < 0) {
+                        path.addFirst('H');
+                    }
+                    
+                    node = node.cameFrom;
+                }
+                
+                return path;
             }
 
             open.remove(current);
             closed.add(current);
 
             for (Node neighbor : getNeighbors(current)) {
-                // System.out.println(open.size());
-                // System.out.println(closed.size());
-
                 if (closed.contains(neighbor)) {
                     continue;
                 }
-                
+
                 int nextGScore = current.gScore + 1;
                 if (!open.contains(neighbor)) {
                     open.add(neighbor);
-                    // System.out.println(open.size());
                 } else if (nextGScore >= neighbor.gScore) {
                     continue;
                 }
@@ -130,8 +142,6 @@ public class AI {
                 neighbor.fScore = neighbor.gScore + costDistance(neighbor, goal);
             }
         }
-        
-        System.out.println("null");
 
         return null;
     }
